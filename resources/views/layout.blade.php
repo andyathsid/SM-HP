@@ -58,15 +58,30 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link @if(!request()->is('admin/roomtype*')) collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tipe Kamar</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse @if(request()->is('admin/roomtype*')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{url('admin/roomtype/create')}}">Tambah Baru</a>
+                        <a class="collapse-item" href="{{url('admin/roomtype/create')}}">Tambah Baru</a>
                         <a class="collapse-item" href="{{url('admin/roomtype')}}">Lihat Semua</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- RoomMaster -->
+            <li class="nav-item">
+                <a class="nav-link @if(!request()->is('admin/rooms*')) collapsed @endif" href="#" data-toggle="collapse" data-target="#roomMaster"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-box"></i>
+                    <span>Kamar</span>
+                </a>
+                <div id="roomMaster" class="collapse @if(request()->is('admin/rooms*')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{url('admin/rooms/create')}}">Tambah Baru</a>
+                        <a class="collapse-item" href="{{url('admin/rooms')}}">Lihat Semua</a>
                     </div>
                 </div>
             </li>

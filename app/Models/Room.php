@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    function RoomType(){
-        return $this->belongsTo(RoomType::class, 'roomtype_id');
+    function Roomtype(){
+        return $this->belongsTo(RoomType::class,'room_type_id');
     }
 }
