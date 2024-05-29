@@ -18,6 +18,10 @@
                                         <td>{{$data->title}}</td>
                                     </tr>
                                     <tr>
+                                        <th>Harga</th>
+                                        <td>{{$data->price}}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Detail</th>
                                         <td>{{$data->detail}}</td>
                                     </tr>

@@ -6,8 +6,8 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tipe Kamar
-                                <a href="{{url('admin/roomtype/create')}}" class="float-right btn btn-success btn-sm">Tambah Data</a>
+                            <h6 class="m-0 font-weight-bold text-primary">Pelanggan
+                                <a href="{{url('admin/customer/create')}}" class="float-right btn btn-success btn-sm">Tambah Baru</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -19,17 +19,19 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Title</th>
-                                            <th>Harga</th>
-                                            <th>Action</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>#</th>
-                                            <th>Title</th>
-                                            <th>Harga</th>
-                                            <th>Action</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -37,12 +39,13 @@
                                             @foreach($data as $d)
                                             <tr>
                                                 <td>{{$d->id}}</td>
-                                                <td>{{$d->title}}</td>
-                                                <td>{{$d->price}}</td>
+                                                <td>{{$d->full_name}}</td>
+                                                <td>{{$d->email}}</td>
+                                                <td>{{$d->mobile}}</td>
                                                 <td>
-                                                    <a href="{{url('admin/roomtype/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{url('admin/roomtype/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="return confirm('Konfirmasi penghapusan data.')" href="{{url('admin/roomtype/'.$d->id).'/delete'}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <a href="{{url('admin/customer/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+                                                    <a href="{{url('admin/customer/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                                    <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('admin/customer/'.$d->id).'/delete'}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -65,8 +68,6 @@
 
 <!-- Page level custom scripts -->
 <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
-
-
 @endsection
 
 @endsection
