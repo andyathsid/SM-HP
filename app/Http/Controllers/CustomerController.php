@@ -47,7 +47,7 @@ class CustomerController extends Controller
 
 
         if ($request->hasFile('photo')) {
-            $imgPath = $request->file('photo')->store('public/img');
+            $imgPath = $request->file('photo')->store('public/imgs');
             $filename = basename($imgPath);
         } else {
             $defaultImagePath = public_path('img/default_icon.png');
@@ -110,7 +110,7 @@ class CustomerController extends Controller
         ]);
 
         if($request->hasFile('photo')){
-            $imgPath=$request->file('photo')->store('public/img');
+            $imgPath=$request->file('photo')->store('public/imgs');
             $imgPath= basename($imgPath);
         }else{
             $imgPath=$request->prev_photo;

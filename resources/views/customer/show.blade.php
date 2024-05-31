@@ -19,7 +19,7 @@
                                     </tr>
                                     <tr>
                                         <th>Gambar</th>
-                                        <td><img width="100" src="/storage/img/{{$data->photo}}" /></td>
+                                        <td><img width="100" src="/storage/imgs/{{$data->photo}}" /></td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>

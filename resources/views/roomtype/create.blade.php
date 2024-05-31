@@ -10,12 +10,19 @@
                                 <a href="{{url('admin/roomtype')}}" class="float-right btn btn-success btn-sm">Lihat Semua</a>
                             </h6>
                         </div>
+
+                        @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                    <p class="text-danger">{{$error}}</p>
+                                @endforeach
+                        @endif
+
                         <div class="card-body">
                             @if(Session::has('success'))
                             <p class="text-success">{{session('success')}}</p>
                             @endif
                             <div class="table-responsive">
-                                <form method="post" action="{{url('admin/roomtype')}}">
+                                <form enctype="multipart/form-data" method="post" action="{{url('admin/roomtype')}}">
                                     @csrf
                                     <table class="table table-bordered" >
                                         <tr>
@@ -29,6 +36,10 @@
                                         <tr>
                                             <th>Detail</th>
                                             <td><textarea name="detail" class="form-control"></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Galeri</th>
+                                            <td><input type="file" multiple name="imgs[]" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
