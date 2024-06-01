@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RoomType;
 use App\Models\Roomtypeimage;
+use Illuminate\Support\Facades\Storage;
 
 class RoomtypeController extends Controller
 {
@@ -52,9 +53,10 @@ class RoomtypeController extends Controller
 
         foreach($request->file('imgs') as $img){
             $imgPath=$img->store('public/imgs');
+            $filename = basename($imgPath);
             $imgData=new Roomtypeimage;
             $imgData->room_type_id=$data->id;
-            $imgData->img_src=$imgPath;
+            $imgData->img_src=$filename;
             $imgData->img_alt=$request->title;
             $imgData->save();
         }
@@ -101,6 +103,19 @@ class RoomtypeController extends Controller
         $data->detail=$request->detail;
         $data->save();
 
+        if($request->hasFile('imgs')){
+            foreach($request->file('imgs') as $img){
+                $imgPath=$img->store('public/imgs');
+                $filename = basename($imgPath);
+                $imgData=new Roomtypeimage;
+                $imgData->room_type_id=$data->id;
+                $imgData->img_src=$filename;
+                $imgData->img_alt=$request->title;
+                $imgData->save();
+            }
+    
+        }
+
         return redirect('admin/roomtype/'.$id.'/edit')->with('success','Data berhasil diperbaharui.');
     }
 
@@ -114,5 +129,14 @@ class RoomtypeController extends Controller
     {
        RoomType::where('id',$id)->delete();
        return redirect('admin/roomtype')->with('success','Data berhasil dihapus.');
+    }
+
+    public function destroy_image($img_id)
+    {
+        $data = Roomtypeimage::where('id', $img_id)->first();
+        $imgPath = 'public/imgs/' . $data->img_src;
+        Storage::delete($imgPath);
+        Roomtypeimage::where('id', $img_id)->delete();
+        return response()->json(['bool' => true]);
     }
 }

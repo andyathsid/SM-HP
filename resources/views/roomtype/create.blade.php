@@ -26,7 +26,7 @@
                                     @csrf
                                     <table class="table table-bordered" >
                                         <tr>
-                                            <th>Title</th>
+                                            <th>Nama Tipe Kamar</th>
                                             <td><input name="title" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>

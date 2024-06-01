@@ -14,7 +14,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered" >
                                     <tr>
-                                        <th>Title</th>
+                                        <th>Nama Tipe Kamar</th>
                                         <td>{{$data->title}}</td>
                                     </tr>
                                     <tr>
@@ -24,6 +24,20 @@
                                     <tr>
                                         <th>Detail</th>
                                         <td>{{$data->detail}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Galeri</th>
+                                        <td>
+                                            <table class="table table-bordered mt-3">
+                                                <tr>
+                                                    @foreach($data->roomtypeimgs as $img)
+                                                    <td class="imgcol{{$img->id}}">
+                                                        <img width="150" src="/storage/imgs/{{$img->img_src}}" />
+                                                    </td>
+                                                    @endforeach
+                                                </tr>
+                                            </table>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>

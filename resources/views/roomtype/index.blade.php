@@ -19,17 +19,19 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Title</th>
+                                            <th>Nama Tipe Kamar</th>
                                             <th>Harga</th>
-                                            <th>Action</th>
+                                            <th>Galeri</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>#</th>
-                                            <th>Title</th>
+                                            <th>Nama Tipe Kamar</th>
                                             <th>Harga</th>
-                                            <th>Action</th>
+                                            <th>Galeri</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -39,6 +41,7 @@
                                                 <td>{{$d->id}}</td>
                                                 <td>{{$d->title}}</td>
                                                 <td>{{$d->price}}</td>
+                                                <td>{{count($d->roomtypeimgs)}}</td>
                                                 <td>
                                                     <a href="{{url('admin/roomtype/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                                     <a href="{{url('admin/roomtype/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
