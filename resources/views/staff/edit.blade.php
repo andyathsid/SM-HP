@@ -53,8 +53,8 @@
                         <tr>
                             <th>Tipe Gaji</th>
                             <td>
-                                <input @if($data->salary_type=='Harian') checked @endif type="radio" name="salary_type" value="daily"> Harian
-                                <input @if($data->salary_type=='Bulanan') checked @endif type="radio" name="salary_type" value="monthly"> Bulanan
+                                <input @if($data->salary_type=='Harian') checked @endif type="radio" name="salary_type" value="Harian"> Harian
+                                <input @if($data->salary_type=='Bulanan') checked @endif type="radio" name="salary_type" value="Bulanan"> Bulanan
                             </td>
                         </tr>
                         <tr>

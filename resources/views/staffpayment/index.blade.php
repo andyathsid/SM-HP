@@ -6,8 +6,8 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Kamar
-                                <a href="{{url('admin/rooms/create')}}" class="float-right btn btn-success btn-sm">Tambah Baru</a>
+                            <h6 class="m-0 font-weight-bold text-primary"> Pembayaran {{$staff->full_name}} 
+                                <a href="{{url('admin/staff/payment/'.$staff_id.'/add')}}" class="float-right btn btn-success btn-sm">Tambah Pembayaran Baru</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -19,16 +19,16 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tipe Kamar</th>
-                                            <th>Nama Kamar</th>
+                                            <th>Jumlah</th>
+                                            <th>Waktu Pembayaran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tipe Kamar</th>
-                                            <th>Nama Kamar</th>
+                                            <th>Jumlah</th>
+                                            <th>Waktu Pembayaran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -37,12 +37,10 @@
                                             @foreach($data as $d)
                                             <tr>
                                                 <td>{{$d->id}}</td>
-                                                <td>{{$d->roomtype->title}}</td>
-                                                <td>{{$d->title}}</td>
+                                                <td>{{$d->amount}}</td>
+                                                <td>{{$d->payment_date}}</td>
                                                 <td>
-                                                    <a href="{{url('admin/rooms/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{url('admin/rooms/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('admin/rooms/'.$d->id).'/delete'}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <a onclick="return confirm('Konfirmasi penghapusan data.')" href="{{url('admin/staff/payment/'.$d->id.'/'.$staff_id).'/delete'}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach

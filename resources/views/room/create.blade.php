@@ -30,7 +30,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Title</th>
+                                            <th>Nama Kamar</th>
                                             <td><input name="title" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>

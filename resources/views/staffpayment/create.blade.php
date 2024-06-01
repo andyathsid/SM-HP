@@ -6,8 +6,8 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Edit Kamar
-                                <a href="{{url('admin/rooms')}}" class="float-right btn btn-success btn-sm">Lihat Semua</a>
+                            <h6 class="m-0 font-weight-bold text-primary"> Tambah Pembayaran Pegawai
+                                <a href="{{url('admin/staff')}}" class="float-right btn btn-success btn-sm">Lihat Semua</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -15,24 +15,16 @@
                             <p class="text-success">{{session('success')}}</p>
                             @endif
                             <div class="table-responsive">
-                                <form method="post" action="{{url('admin/rooms/'.$data->id)}}">
+                                <form method="post" action="{{url('admin/staff/payment/'.$staff_id)}}">
                                     @csrf
-                                    @method('put')
                                     <table class="table table-bordered">
                                         <tr>
-                                            <th>Pilih Tipe Kamar</th>
-                                            <td>
-                                                <select name="rt_id" class="form-control">
-                                                    <option value="0">--- Pilih ---</option>
-                                                    @foreach($roomtypes as $rt)
-                                                <option @if($data->room_type_id==$rt->id) selected @endif value="{{$rt->id}}">{{$rt->title}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
+                                            <th>Jumlah</th>
+                                            <td><input name="amount" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
-                                            <th>Nama Kamar</th>
-                                            <td><input value="{{$data->title}}" name="title" type="text" class="form-control" /></td>
+                                            <th>Tanggal</th>
+                                            <td><input name="amount_date" class="form-control" type="date" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">

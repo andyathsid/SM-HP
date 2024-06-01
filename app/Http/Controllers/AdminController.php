@@ -30,7 +30,7 @@ class AdminController extends Controller
 
             return redirect('admin');
         }else{
-            return redirect('admin/login')->with('msg','Invalid username/Password!!');
+            return redirect('admin/login')->with('msg','Username atau password salah.');
         }
     }
     // Logout
