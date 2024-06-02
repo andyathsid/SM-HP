@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Staff;
 use App\Models\StaffPayment;
+use Illuminate\Support\Facades\Storage;
 class StaffController extends Controller
 {
     /**
@@ -39,16 +40,25 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         $data=new Staff;
-
-        $imgPath=$request->file('photo')->store('public/imgs');
-        $imgPath= basename($imgPath);
+        if ($request->hasFile('photo')) {
+            $imgPath = $request->file('photo')->store('public/imgs');
+            $filename = basename($imgPath);
+        } else {
+            $defaultImagePath = public_path('img/default_icon.png');
+            $filename = 'default_icon.png';
+        
+            if (!Storage::exists($filename)) {
+                Storage::put($filename, file_get_contents($defaultImagePath));
+            }
+        }
+        
 
         $data->full_name=$request->full_name;
         $data->department_id=$request->department_id;
-        $data->photo=$imgPath;
         $data->bio=$request->bio;
+        $data->photo = $filename;
         $data->salary_type=$request->salary_type;
-        $data->salary_amt=$request->salary_amt;
+        $data->salary_amt=$request->unformatted_value;
         $data->save();
 
         return redirect('admin/staff/create')->with('success','Data berhasil ditambahkan.');
@@ -103,7 +113,7 @@ class StaffController extends Controller
         $data->photo=$imgPath;
         $data->bio=$request->bio;
         $data->salary_type=$request->salary_type;
-        $data->salary_amt=$request->salary_amt;
+        $data->salary_amt=$request->unformatted_value;
         $data->save();
 
         return redirect('admin/staff/'.$id.'/edit')->with('success','Data berhasil diperbaharui.');
@@ -144,7 +154,7 @@ class StaffController extends Controller
 
         $data=new StaffPayment;
         $data->staff_id=$staff_id;
-        $data->amount=$request->amount;
+        $data->amount=$request->unformatted_value;
         $data->payment_date=$request->amount_date;
         $data->save();
 

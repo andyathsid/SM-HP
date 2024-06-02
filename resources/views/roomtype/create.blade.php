@@ -31,7 +31,10 @@
                                         </tr>
                                         <tr>
                                             <th>Harga</th>
-                                            <td><input name="price" type="number" class="form-control" /></td>
+                                            <td>
+                                                <input name="price" type="text" class="form-control" id="formattedInput" data-type="currency" />
+                                                <input type="hidden" name="unformatted_value" id="unformattedInput" />
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Detail</th>
@@ -55,4 +58,6 @@
                 </div>
                 <!-- /.container-fluid -->
 
+
 @endsection
+@yield('scripts')

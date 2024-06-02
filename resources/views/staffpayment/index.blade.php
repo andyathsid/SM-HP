@@ -6,7 +6,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"> Pembayaran {{$staff->full_name}} 
+                            <h6 class="m-0 font-weight-bold text-primary">Pembayaran {{$staff->full_name}} 
                                 <a href="{{url('admin/staff/payment/'.$staff_id.'/add')}}" class="float-right btn btn-success btn-sm">Tambah Pembayaran Baru</a>
                             </h6>
                         </div>

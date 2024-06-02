@@ -41,24 +41,27 @@ class RoomtypeController extends Controller
 
         $request->validate([
             'title'=>'required',
-            'price'=>'required',
+            'price' => 'required',
+            'unformatted_value' => 'required',
             'detail'=>'required',
         ]);
 
         $data=new RoomType;
         $data->title=$request->title;
-        $data->price=$request->price;
+        $data->price = $request->unformatted_value;
         $data->detail=$request->detail;
         $data->save();
 
-        foreach($request->file('imgs') as $img){
-            $imgPath=$img->store('public/imgs');
-            $filename = basename($imgPath);
-            $imgData=new Roomtypeimage;
-            $imgData->room_type_id=$data->id;
-            $imgData->img_src=$filename;
-            $imgData->img_alt=$request->title;
-            $imgData->save();
+        if ($request->hasFile('imgs')) {
+            foreach ($request->file('imgs') as $img) {
+                $imgPath = $img->store('public/imgs');
+                $filename = basename($imgPath);
+                $imgData = new Roomtypeimage;
+                $imgData->room_type_id = $data->id;
+                $imgData->img_src = $filename;
+                $imgData->img_alt = $request->title;
+                $imgData->save();
+            }
         }
 
         return redirect('admin/roomtype/create')->with('success','Data berhasil ditambahkan.');
@@ -99,21 +102,20 @@ class RoomtypeController extends Controller
     {
         $data=RoomType::find($id);
         $data->title=$request->title;
-        $data->price=$request->price;
+        $data->price = $request->unformatted_value;
         $data->detail=$request->detail;
         $data->save();
 
-        if($request->hasFile('imgs')){
-            foreach($request->file('imgs') as $img){
-                $imgPath=$img->store('public/imgs');
+        if ($request->hasFile('imgs')) {
+            foreach ($request->file('imgs') as $img) {
+                $imgPath = $img->store('public/imgs');
                 $filename = basename($imgPath);
-                $imgData=new Roomtypeimage;
-                $imgData->room_type_id=$data->id;
-                $imgData->img_src=$filename;
-                $imgData->img_alt=$request->title;
+                $imgData = new Roomtypeimage;
+                $imgData->room_type_id = $data->id;
+                $imgData->img_src = $filename;
+                $imgData->img_alt = $request->title;
                 $imgData->save();
             }
-    
         }
 
         return redirect('admin/roomtype/'.$id.'/edit')->with('success','Data berhasil diperbaharui.');

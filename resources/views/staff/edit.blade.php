@@ -30,12 +30,11 @@
                         <tr>
                             <th>Pilih Departemen</th>
                             <td>
-                                <select name="department_id" class="form-control">
-                                    <option value="0">--- Select ---</option>
-                                    @foreach($departs as $dp)
-                                    <option @if($data->id==$dp->id) selected @endif value="{{$dp->id}}">{{$dp->title}}</option>
-                                    @endforeach
-                                </select>
+                            <select name="department_id" class="form-control">
+                                @foreach($departs as $dp)
+                                    <option value="{{$dp->id}}" {{ $data->department_id == $dp->id ? 'selected' : '' }}>{{$dp->title}}</option>
+                                @endforeach
+                            </select>
                             </td>
                         </tr>
                         <tr>
@@ -59,7 +58,11 @@
                         </tr>
                         <tr>
                             <th>Jumlah Gaji</th>
-                            <td><input value="{{$data->salary_amt}}" name="salary_amt" class="form-control" type="number" /></td>
+
+                            <td>
+                                <input type="text" data-type="currency" value="{{$data->salary_amt}}" name="salary_amt" class="form-control" type="number" id="formattedInput"/>
+                                <input type="hidden" name="unformatted_value" id="unformattedInput" />
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2">

@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <th>Jumlah Gaji</th>
-                        <td>{{$data->salary_amt}}</td>
+                        <td>{{$formattedSalary = 'Rp' . number_format($data->salary_amt, 0, ',', '.')}}</td>
                     </tr>
                 </table>
             </div>

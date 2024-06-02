@@ -20,7 +20,11 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <th>Jumlah</th>
-                                            <td><input name="amount" type="text" class="form-control" /></td>
+                                            <td>
+                                                <input name="amount" type="text" class="form-control" id="formattedInput" data-type="currency" />
+                                                <input type="hidden" name="unformatted_value" id="unformattedInput" />
+                                            </td>
+                                            
                                         </tr>
                                         <tr>
                                             <th>Tanggal</th>

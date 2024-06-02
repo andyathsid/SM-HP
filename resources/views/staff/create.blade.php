@@ -50,7 +50,10 @@
                                         </tr>
                                         <tr>
                                             <th>Jumlah Gaji</th>
-                                            <td><input name="salary_amt" class="form-control" type="number" /></td>
+                                            <td>
+                                                <input type="text" name="salary_amt" class="form-control" type="number" id="formattedInput" data-type="currency"/>
+                                                <input type="hidden" name="unformatted_value" id="unformattedInput" />
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
@@ -67,3 +70,4 @@
                 <!-- /.container-fluid -->
 
 @endsection
+@yield('scripts')

@@ -32,7 +32,8 @@
                                         <tr>
                                             <th>Harga</th>
                                             <td>
-                                                <input value="{{$data->price}}" name="price" type="number" class="form-control" />
+                                                <input value="{{$data->price}}" name="price" type="text" class="form-control" id="formattedInput" data-type="currency" />
+                                                <input value="{{$data->price}}" type="hidden" name="unformatted_value" id="unformattedInput" />
                                             </td>
                                         </tr>
 
