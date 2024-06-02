@@ -8,6 +8,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\StaffDepartment;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,3 +66,7 @@ Route::resource('admin/staff',StaffController::class);
 Route::get('admin/booking/{id}/delete',[BookingController::class,'destroy']);
 Route::get('admin/booking/available-rooms/{checkin_date}',[BookingController::class,'available_rooms']);
 Route::resource('admin/booking',BookingController::class);
+
+// Service CRUD
+Route::get('admin/service/{id}/delete',[ServiceController::class,'destroy']);
+Route::resource('admin/service',ServiceController::class);

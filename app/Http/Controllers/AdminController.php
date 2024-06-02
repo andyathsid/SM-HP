@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Admin;
-use Cookie;
 use App\Models\Booking;
+use Cookie;
 
 class AdminController extends Controller
 {
@@ -31,7 +32,7 @@ class AdminController extends Controller
 
             return redirect('admin');
         }else{
-            return redirect('admin/login')->with('msg','Username atau password salah.');
+            return redirect('admin/login')->with('msg','Invalid username/Password!!');
         }
     }
     // Logout
@@ -48,6 +49,25 @@ class AdminController extends Controller
             $labels[]=$booking['checkin_date'];
             $data[]=$booking['total_bookings'];
         }
-        return view('dashboard',['labels'=>$labels,'data'=>$data]);
+
+        // For Pie Chart
+        $rtbookings = DB::table('room_types as rt')
+        ->join('rooms as r', 'r.room_type_id', '=', 'rt.id')
+        ->join('bookings as b', 'b.room_id', '=', 'r.id')
+        ->select('rt.title', DB::raw('count(b.id) as total_bookings'))
+        ->groupBy('r.room_type_id', 'rt.title')
+        ->get();
+        $plabels = [];
+        $pdata = [];
+        foreach ($rtbookings as $rbooking) {
+            $plabels[] = $rbooking->title;
+            $pdata[] = $rbooking->total_bookings;
+        }
+        // End
+
+        // echo '<pre>';
+        // print_r($rtbookings);
+
+        return view('dashboard',['labels'=>$labels,'data'=>$data,'plabels'=>$plabels,'pdata'=>$pdata]);
     }
 }

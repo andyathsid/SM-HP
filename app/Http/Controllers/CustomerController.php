@@ -72,6 +72,11 @@ class CustomerController extends Controller
         $data->photo = $filename;
         $data->save();
 
+        $ref=$request->ref;
+        if($ref=='front'){
+            return redirect('register')->with('success','Data berhasil ditambahkan.');
+        }
+
         return redirect('admin/customer/create')->with('success','Data berhasil ditambahkan.');
     }
 
@@ -143,4 +148,45 @@ class CustomerController extends Controller
        Customer::where('id',$id)->delete();
        return redirect('admin/customer')->with('success','Data berhasil dihapus.');
     }
+
+    // Login
+    function login()
+    {
+        return view('frontlogin');
+    }
+
+    // Check Login
+    function customer_login(Request $request)
+    {
+        $email = $request->email;
+        $pwd = sha1($request->password);
+
+        $detail = Customer::where(['email' => $email, 'password' => $pwd])
+            ->count();
+
+        if ($detail > 0) {
+            $detail = Customer::where(['email' => $email, 'password' => $pwd])
+                ->get();
+
+            session(['customerlogin' => true, 'data' => $detail]);
+            return redirect('/');
+        } else {
+            return redirect('login')
+                ->with('error', 'Invalid email/password!!');
+        }
+    }
+
+    // register
+    function register()
+    {
+        return view('register');
+    }
+
+    // Logout
+    function logout()
+    {
+        session()->forget(['customerlogin', 'data']);
+        return redirect('login');
+    }
+
 }

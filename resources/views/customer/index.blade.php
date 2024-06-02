@@ -45,7 +45,7 @@
                                                 <td>
                                                     <a href="{{url('admin/customer/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                                     <a href="{{url('admin/customer/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="return confirm('Are you sure to delete this data?')" href="{{url('admin/customer/'.$d->id).'/delete'}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <a onclick="return confirm('Konfirmasi penghapusan data.')" href="{{url('admin/customer/'.$d->id).'/delete'}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach

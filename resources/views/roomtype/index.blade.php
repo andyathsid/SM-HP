@@ -69,10 +69,6 @@
 <!-- Page level custom scripts -->
 <script src="{{ asset('js/roomtype/roomtype.js') }}"></script>
 
-
-
-
-
 @endsection
 
 @endsection

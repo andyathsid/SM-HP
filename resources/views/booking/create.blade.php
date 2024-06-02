@@ -7,7 +7,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Tambah Booking
-                                <a href="{{url('admin/customer')}}" class="float-right btn btn-success btn-sm">Lihat Semua</a>
+                                <a href="{{url('admin/booking')}}" class="float-right btn btn-success btn-sm">Lihat Semua</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -48,6 +48,7 @@
                                             <th>Kamar Tersedia <span class="text-danger">*</span></th>
                                             <td>
                                                 <select class="form-control room-list" name="room_id">
+                                                <p>Harga: <span class="show-room-price"></span></p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -60,6 +61,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">
+                                                <input type="hidden" name="roomprice" class="room-price" value="" />
                                                 <input type="submit" class="btn btn-primary" />
                                             </td> 
                                         </tr>
@@ -87,11 +89,20 @@
                 success:function(res){
                     var _html='';
                     $.each(res.data,function(index,row){
-                        _html+='<option value="'+row.id+'">'+row.title+'</option>';
+                        _html+='<option data-price="'+row.roomtype.price+'" value="'+row.room.id+'">'+row.room.title+'-'+row.roomtype.title+'</option>';
                     });
                     $(".room-list").html(_html);
+                    var _selectedPrice=$(".room-list").find('option:selected').attr('data-price');
+                    $(".room-price").val(_selectedPrice);
+                    $(".show-room-price").text(_selectedPrice);
                 }
             });
+        });
+        
+        $(document).on("change",".room-list",function(){
+            var _selectedPrice=$(this).find('option:selected').attr('data-price');
+            $(".room-price").val(_selectedPrice);
+            $(".show-room-price").text(_selectedPrice);
         });
     });
 </script>

@@ -15,7 +15,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $bookings=Booking::all();
+        return view('booking.index',['data'=>$bookings]);
     }
 
     /**
@@ -52,7 +53,16 @@ class BookingController extends Controller
         $data->checkout_date=$request->checkout_date;
         $data->total_adults=$request->total_adults;
         $data->total_children=$request->total_children;
+        if($request->ref=='front'){
+            $data->ref='front';
+        }else{
+            $data->ref='admin';
+        }
         $data->save();
+
+        if($request->ref=='front'){
+            return redirect('booking')->with('success','Data berhasil ditambahkan.');
+        }
 
         return redirect('admin/booking/create')->with('success','Data berhasil ditambahkan.');
     }
@@ -99,13 +109,26 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Booking::where('id',$id)->delete();
+        return redirect('admin/booking')->with('success','Data berhasil dihapus.');
     }
 
 
     // Check Avaiable rooms
     function available_rooms(Request $request,$checkin_date){
         $arooms=DB::SELECT("SELECT * FROM rooms WHERE id NOT IN (SELECT room_id FROM bookings WHERE '$checkin_date' BETWEEN checkin_date AND checkout_date)");
+        
+        // $data=[];
+        // foreach($arooms as $room){
+        //     $roomTypes=RoomType::find($room->room_type_id);
+        //     $data[]=['room'=>$room,'roomtype'=>$roomTypes];
+        // }
+        
         return response()->json(['data'=>$arooms]);
+    }
+
+    public function front_booking()
+    {
+        return view('front-booking');
     }
 }

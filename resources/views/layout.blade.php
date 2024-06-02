@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <title>A HOTEL</title>
+    <title>HOTEL</title>
 
     @if(!Session::has('adminData'))
         <script type="text/javascript">
@@ -41,7 +42,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">A HOTEL</div>
+                <div class="sidebar-brand-text mx-3">HOTEL</div>
             </a>
 
             <!-- Divider -->
@@ -139,9 +140,16 @@
             
             <!-- Booking-->
             <li class="nav-item">
-                <a class="nav-link" href="{{url('admin/booking/create')}}">
+                <a class="nav-link" href="{{url('admin/booking')}}">
                     <i class="fas fa-calendar"></i>
                     <span>Bookings</span></a>
+            </li>
+
+            <!-- Layanan -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('admin/service')}}">
+                    <i class="fas fa-table"></i>
+                    <span>Layanan</span></a>
             </li>
 
             <!-- Logout -->
@@ -203,7 +211,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-profile rounded-circle"
-                                    src="{{asset('public')}}/img/undraw_profile.svg">
+                                    src="{{asset('img/undraw_profile.svg')}}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
