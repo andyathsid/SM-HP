@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +29,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
 </head>
-
-<body id="page-top">
+<body>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -64,6 +64,53 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+
+            <!-- Manajemen Pengguna-->
+            <li class="nav-item">
+                <a class="nav-link @if(!request()->is('admin/user*')) collapsed @endif" href="#" data-toggle="collapse" data-target="#userMaster"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Manajemen Pengguna</span>
+                </a>
+                <div id="userMaster" class="collapse @if(request()->is('admin/user*')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{url('admin/user/create')}}">Tambah Baru</a>
+                        <a class="collapse-item" href="{{url('admin/user')}}">Lihat Semua</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Manajemen Izin -->
+            <li class="nav-item">
+                <a class="nav-link @if(!request()->is('admin/permission*')) collapsed @endif" href="#" data-toggle="collapse" data-target="#permissionMaster"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-lock"></i>
+                    <span>Manajemen Izin</span>
+                </a>
+                <div id="permissionMaster" class="collapse @if(request()->is('admin/permission*')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{url('admin/permission/create')}}">Tambah Baru</a>
+                        <a class="collapse-item" href="{{url('admin/permission')}}">Lihat Semua</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Manajemen Peran -->
+            <li class="nav-item">
+                <a class="nav-link @if(!request()->is('admin/role*')) collapsed @endif" href="#" data-toggle="collapse" data-target="#roleMaster"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-key"></i>
+                    <span>Manajemen Peran</span>
+                </a>
+                <div id="roleMaster" class="collapse @if(request()->is('admin/role*')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{url('admin/role/create')}}">Tambah Baru</a>
+                        <a class="collapse-item" href="{{url('admin/role')}}">Lihat Semua</a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Tipe Kamar -->
             <li class="nav-item">
                 <a class="nav-link @if(!request()->is('admin/roomtype*')) collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -152,12 +199,7 @@
                     <span>Layanan</span></a>
             </li>
 
-            <!-- Logout -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('admin/logout')}}">
-                    <i class="fas fa-fw fa-sign-out-alt"></i>
-                    <span>Logout</span></a>
-            </li>
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -204,19 +246,19 @@
                             </div>
                         </li>
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-angle-down mr-2"></i>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{$adminUsername}}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="{{asset('img/undraw_profile.svg')}}">
+                                    src="{{asset('img/default_icon.png')}}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{url('admin/logout')}}" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{url('admin/logout')}}">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -260,15 +302,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Logout</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <a class="btn btn-primary" href="{{url('admin/logout')}}">Logout</a>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary"href="{{url('admin/logout')}}">Confirm</a>
                 </div>
             </div>
         </div>

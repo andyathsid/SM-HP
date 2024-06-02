@@ -26,7 +26,7 @@
                                     @csrf
                                     <table class="table table-bordered" >
                                         <tr>
-                                            <th>Pilih Pelanggan <span class="text-danger">*</span></th>
+                                            <th>Pilih Pelanggan<span class="text-danger">*</span></th>
                                             <td>
                                                 <select class="form-control" name="customer_id">
                                                     <option>--- Pilih ---</option>
@@ -37,22 +37,24 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Tanggal Check-In <span class="text-danger">*</span></th>
+                                            <th>Tanggal Check-In<span class="text-danger">*</span></th>
                                             <td><input name="checkin_date" type="date" class="form-control checkin-date" /></td>
                                         </tr>
                                         <tr>
-                                            <th>Tanggal Check-Out  <span class="text-danger">*</span></th>
+                                            <th>Tanggal Check-Out<span class="text-danger">*</span></th>
                                             <td><input name="checkout_date" type="date" class="form-control" /></td>
                                         </tr>
                                         <tr>
-                                            <th>Kamar Tersedia <span class="text-danger">*</span></th>
+                                            <th>Ketersediaan Kamar<span class="text-danger">*</span></th>
                                             <td>
                                                 <select class="form-control room-list" name="room_id">
+
+                                                </select>
                                                 <p>Harga: <span class="show-room-price"></span></p>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Jumlah Orang Dewasa <span class="text-danger">*</span></th>
+                                            <th>Jumlah Dewasa<span class="text-danger">*</span></th>
                                             <td><input name="total_adults" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
@@ -74,37 +76,41 @@
                 </div>
                 <!-- /.container-fluid -->
 
-@section('scripts')
+                @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function(){
-        $(".checkin-date").on('blur',function(){
-            var _checkindate=$(this).val();
-            // Ajax
-            $.ajax({
-                url:"{{url('admin/booking')}}/available-rooms/"+_checkindate,
-                dataType:'json',
-                beforeSend:function(){
-                    $(".room-list").html('<option>--- Loading ---</option>');
-                },
-                success:function(res){
-                    var _html='';
-                    $.each(res.data,function(index,row){
-                        _html+='<option data-price="'+row.roomtype.price+'" value="'+row.room.id+'">'+row.room.title+'-'+row.roomtype.title+'</option>';
-                    });
-                    $(".room-list").html(_html);
-                    var _selectedPrice=$(".room-list").find('option:selected').attr('data-price');
-                    $(".room-price").val(_selectedPrice);
-                    $(".show-room-price").text(_selectedPrice);
-                }
-            });
-        });
-        
-        $(document).on("change",".room-list",function(){
-            var _selectedPrice=$(this).find('option:selected').attr('data-price');
-            $(".room-price").val(_selectedPrice);
-            $(".show-room-price").text(_selectedPrice);
+$(document).ready(function(){
+    $(".checkin-date").on('blur',function(){
+        var checkindate = $(this).val();
+        // Ajax
+        $.ajax({
+            url:"{{url('admin/booking')}}/available-rooms/"+checkindate,
+            dataType:'json',
+            beforeSend:function(){
+                $(".room-list").html('<option>--- Loading ---</option>');
+            },
+            success:function(res){
+                var html='';
+                $.each(res.data,function(index,row){
+                    html+='<option data-price="'+row.roomtype.price+'" value="'+row.room.id+'">'+row.room.title+'-'+row.roomtype.title+'</option>';
+                });
+                $(".room-list").html(html);
+                var selectedPrice = $(".room-list").find('option:selected').attr('data-price');
+                $(".room-price").val(selectedPrice);
+                $(".show-room-price").text(formatIDR(selectedPrice));
+            }
         });
     });
+
+    $(document).on("change",".room-list",function(){
+        var selectedPrice = $(this).find('option:selected').attr('data-price');
+        $(".room-price").val(selectedPrice);
+        $(".show-room-price").text(formatIDR(selectedPrice));
+    });
+
+    function formatIDR(amount) {
+        return "Rp" + Number(amount).toLocaleString('id-ID');
+    }
+});
 </script>
 @endsection
 

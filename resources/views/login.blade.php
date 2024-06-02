@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Hotel - Admin Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -44,46 +44,46 @@
                                         <h1 class="h4 text-gray-900 mb-4">Admin Login</h1>
                                     </div>
                                     <form class="user" method="post" action="{{ url('admin/login') }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <input type="text" name="username"
-                                                class="form-control form-control-user"
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="email" name="email"
+                                            class="form-control form-control-user"
+                                            @if (Cookie::has('adminuser'))
+                                                value="{{ Cookie::get('adminuser') }}"
+                                            @endif
+                                            id="email"
+                                            aria-describedby="emailHelp"
+                                            placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="password"
+                                            @if (Cookie::has('adminpwd'))
+                                                value="{{ Cookie::get('adminpwd') }}"
+                                            @endif
+                                            type="password"
+                                            class="form-control form-control-user"
+                                            id="exampleInputPassword"
+                                            placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox"
                                                 @if (Cookie::has('adminuser'))
-                                                    value="{{ Cookie::get('adminuser') }}"
+                                                    checked
                                                 @endif
-                                                id="username"
-                                                name="username"
-                                                aria-describedby="emailHelp"
-                                                placeholder="Username">
+                                                name="rememberme"
+                                                class="custom-control-input"
+                                                id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">
+                                                Ingatkan Saya
+                                            </label>
                                         </div>
-                                        <div class="form-group">
-                                            <input name="password"
-                                                @if (Cookie::has('adminpwd'))
-                                                    value="{{ Cookie::get('adminpwd') }}"
-                                                @endif
-                                                type="password"
-                                                class="form-control form-control-user"
-                                                id="exampleInputPassword"
-                                                placeholder="Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox"
-                                                    @if (Cookie::has('adminuser'))
-                                                        checked
-                                                    @endif
-                                                    name="rememberme"
-                                                    class="custom-control-input"
-                                                    id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">
-                                                    Ingatkan Saya
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <input type="submit"
-                                            class="btn btn-primary btn-user btn-block"
-                                            value="Login">
-                                    </form>
+                                    </div>
+                                    <input type="submit"
+                                        class="btn btn-primary btn-user btn-block"
+                                        value="Login">
+                                </form>
+
 
                                     @if($errors->any())
                                         @foreach($errors->all() as $error)

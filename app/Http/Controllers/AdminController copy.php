@@ -2,66 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Booking;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Admin;
+use App\Models\Booking;
 use Cookie;
 
 class AdminController extends Controller
 {
+
+    protected $redirectTo = '/admin/login';
     // Login
-    public function login()
-    {
+    function login(){
         return view('login');
     }
-
     // Check Login
-    public function check_login(Request $request)
-    {
+    function check_login(Request $request){
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'username'=>'required',
+            'password'=>'required',
         ]);
-
-        // Retrieve user by email
-        $user = User::where('email', $request->email)->first();
-
-        if ($user && Hash::check($request->password, $user->password)) {
-            Auth::login($user);
-
-            if ($request->has('rememberme')) {
-                Cookie::queue('adminuser', $request->email, 1440);
+        $admin=Admin::where(['username'=>$request->username,'password'=>sha1($request->password)])->first();
+        if($admin){
+            session(['adminData' => $admin]);
+    
+            if($request->has('rememberme')){
+                Cookie::queue('adminuser', $request->username, 1440);
                 Cookie::queue('adminpwd', $request->password, 1440);
             }
-
+    
             return redirect('admin');
         } else {
-            return redirect('admin/login')->with('msg', 'Email atau password salah!');
+            return redirect('admin/login')->with('msg', 'Username atau password salah!');
         }
     }
-
+    
     // Logout
-    public function logout()
-    {
-        Auth::logout();
+    function logout(){
+        session()->forget(['adminData']);
         return redirect('admin/login');
     }
 
-    public function dashboard(Request $request)
-    {
+    function dashboard(Request $request){
         $bookings = Booking::selectRaw('count(id) as total_bookings, checkin_date')
                             ->groupBy('checkin_date')
                             ->get();
         $labels = [];
         $data = [];
-        foreach ($bookings as $booking) {
+        foreach($bookings as $booking){
             $labels[] = $booking['checkin_date'];
             $data[] = $booking['total_bookings'];
         }
-
+    
         // For Pie Chart
         $rtbookings = DB::table('room_types as rt')
             ->join('rooms as r', 'r.room_type_id', '=', 'rt.id')
@@ -76,11 +68,20 @@ class AdminController extends Controller
             $pdata[] = $rbooking->total_bookings;
         }
 
+        $adminData = session('adminData');
+    
+        // Get admin data from session
+        $adminData = session('adminData');
+    
         return view('dashboard', [
             'labels' => $labels,
             'data' => $data,
             'plabels' => $plabels,
             'pdata' => $pdata,
         ]);
-    }
+        
+        return view('layout', [
+            'adminUsername' => $adminData->username 
+        ]);
+    }    
 }

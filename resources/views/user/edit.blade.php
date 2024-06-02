@@ -6,7 +6,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Edit Pelanggan
+                            <h6 class="m-0 font-weight-bold text-primary">Edit Pengguna
                                 <a href="{{url('admin/customer')}}" class="float-right btn btn-success btn-sm">Lihat Semua</a>
                             </h6>
                         </div>
@@ -22,33 +22,40 @@
                             <p class="text-success">{{session('success')}}</p>
                             @endif
                             <div class="table-responsive">
-                                <form method="post" enctype="multipart/form-data" action="{{url('admin/customer/'.$data->id)}}">
+                                <form method="post" enctype="multipart/form-data" action="{{url('admin/user/'.$user->id)}}">
                                     @csrf
                                     @method('put')
                                     <table class="table table-bordered" >
-                                        <tr>
-                                            <th>Nama Lengkap <span class="text-danger">*</span></th>
-                                            <td><input value="{{$data->full_name}}" name="full_name" type="text" class="form-control" /></td>
+                                    <tr>
+                                            <th>Nama Pengguna <span class="text-danger">*</span></th>
+                                            <td><input value="{{ $user->name }}" name="name" type="text" class="form-control" /></td>
+                                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                         </tr>
                                         <tr>
                                             <th>Email <span class="text-danger">*</span></th>
-                                            <td><input value="{{$data->email}}" name="email" type="email" class="form-control" /></td>
+                                            <td><input readonly value="{{ $user->email }}" name="email" type="email" class="form-control" /></td>
                                         </tr>
                                         <tr>
-                                            <th>Mobile <span class="text-danger">*</span></th>
-                                            <td><input value="{{$data->mobile}}" name="mobile" type="text" class="form-control" /></td>
+                                            <th>Password <span class="text-danger">*</span></th>
+                                            <td><input name="password" type="password" class="form-control" /></td>
+                                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                         </tr>
                                         <tr>
-                                            <th>Gambar</th>
+                                            <th>Peran <span class="text-danger">*</span></th>
                                             <td>
-                                                <input name="photo" type="file" />
-                                                <input type="hidden" name="prev_photo" value="{{$data->photo}}" />
-                                                <img width="100" src="/storage/imgs/{{$data->photo}}" />
+                                                <select name="roles[]" class="form-control" multiple>
+                                                    <option value="">--- Pilih ---</option>
+                                                    @foreach ($roles as $role)
+                                                    <option
+                                                        value="{{ $role }}"
+                                                        {{ in_array($role, $userRoles) ? 'selected':'' }}
+                                                    >
+                                                        {{ $role }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('roles') <span class="text-danger">{{ $message }}</span> @enderror
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Alamat</th>
-                                            <td><textarea name="address" class="form-control">{{$data->address}}</textarea></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">

@@ -101,8 +101,9 @@ class ServiceController extends Controller
 
         if($request->hasFile('photo')){
             $imgPath=$request->file('photo')->store('public/imgs');
+            $imgPath= basename($imgPath);
         }else{
-            $imgPath=null;
+            $imgPath=$request->prev_photo;
         }
         
         $data=Service::find($id);

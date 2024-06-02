@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'ShareAdminUsername' => \App\Http\Middleware\ShareAdminUsername::class,
+        ]);
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

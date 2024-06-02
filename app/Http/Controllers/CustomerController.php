@@ -172,7 +172,7 @@ class CustomerController extends Controller
             return redirect('/');
         } else {
             return redirect('login')
-                ->with('error', 'Invalid email/password!!');
+                ->with('error', '{Password/email salah!}');
         }
     }
 

@@ -38,10 +38,6 @@
                                             <td><input name="password" type="password" class="form-control" /></td>
                                         </tr>
                                         <tr>
-                                            <th>Mobile <span class="text-danger">*</span></th>
-                                            <td><input name="mobile" type="text" class="form-control" /></td>
-                                        </tr>
-                                        <tr>
                                             <th>Gambar</th>
                                             <td><input name="photo" type="file" /></td>
                                         </tr>
