@@ -45,6 +45,11 @@ class CustomerController extends Controller
             'mobile'=>'required',
         ]);
 
+        if($request->hasFile('photo')){
+            $imgPath=$request->file('photo')->store('public/imgs');
+        }else{
+            $imgPath=null;
+        }
 
         if ($request->hasFile('photo')) {
             $imgPath = $request->file('photo')->store('public/imgs');
