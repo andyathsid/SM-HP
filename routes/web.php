@@ -36,7 +36,7 @@ Route::post('admin/login', [AdminController::class, 'check_login']);
 Route::get('admin/logout', [AdminController::class, 'logout']);
 
 // Protected routes
-Route::middleware(['auth', 'ShareAdminUsername'])->group(function () {
+Route::middleware(['ShareAdminUsername', 'auth'])->group(function () {
     // Admin Dashboard
     Route::get('admin', [AdminController::class, 'dashboard']);
 
@@ -44,19 +44,20 @@ Route::middleware(['auth', 'ShareAdminUsername'])->group(function () {
     Route::get('admin/roomtype/{id}/delete', [RoomtypeController::class, 'destroy']);
     Route::resource('admin/roomtype', RoomtypeController::class);
 
-    // Users Management
-    Route::resource('admin/user', UserController::class);
-    Route::get('admin/user/{userId}/delete', [UserController::class, 'destroy']);
+        // Users Management
+        Route::resource('admin/user', UserController::class);
+        Route::get('admin/user/{userId}/delete', [UserController::class, 'destroy']);
 
-    // Permissions Management
-    Route::get('admin/permission/{permissionId}/delete', [PermissionController::class, 'destroy']);
-    Route::resource('admin/permission', PermissionController::class);
+        // Permissions Management
+        Route::get('admin/permission/{permissionId}/delete', [PermissionController::class, 'destroy']);
+        Route::resource('admin/permission', PermissionController::class);
+            
 
-    // Roles Management
-    Route::get('admin/role/{roleId}/delete', [RoleController::class, 'destroy']);
-    Route::resource('admin/role', RoleController::class);
-    Route::get('admin/role/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
-    Route::put('admin/role/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
+        // Roles Management
+        Route::get('admin/role/{roleId}/delete', [RoleController::class, 'destroy']);
+        Route::resource('admin/role', RoleController::class);
+        Route::get('admin/role/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
+        Route::put('admin/role/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
 
     // Room
     Route::get('admin/rooms/{id}/delete', [RoomController::class, 'destroy']);

@@ -13,11 +13,6 @@
 
     <title>HOTEL</title>
 
-    @if(!Session::has('adminData'))
-        <script type="text/javascript">
-            window.location.href="{{url('admin/login')}}";
-        </script>
-    @endif
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
